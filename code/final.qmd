@@ -13,6 +13,13 @@ execute:
 [Repo Link]: https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
 
 ```{r to read in packages and data}
+#| message: false
+library(tidyverse) # general use
+library(here) # file organization
+library(janitor) # cleaning data frames
+library(cowplot) # for plot theme
+
+sst <- read_csv(here("data", "SST_update2023.csv")) # reading in SB channel SST data
 
 ```
 
@@ -33,6 +40,29 @@ Furthermore, we would run an eta squared test (n^2^) to determine the effect siz
 We determined there was a correlation between distance from headwater (km) and annual total nitrogen load (kg year{-1}) (Pearson correlation test, r = **correlation coefficient**, p = 0.03, $\alpha$ = **significance level**). 
 
 We found a small/medium/large ($\eta^2$ = **n^2^**) difference between sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load (kg year{-1}), (one-way ANOVA, F(**among groups df, within groups df**) = **F-statistic**, p = 0.02, $\alpha$ = **significance level**). On average, **source** tended to have smaller/larger nitrogen loads than **source** (Tukey's HSD: p < **p-value**).
+
+# Problem 2
+
+## a. Cleaning and Summarizing
+```{r cleaning and summarizing}
+#| message: false
+
+sst_clean <- sst %>% # creating new data frame called sst_clean from sst
+  select(temp, date) %>%  # selecting only temp and date columns
+  filter(date > as_date("2017-12-31")) %>% # only including dates of 2018-2023
+ mutate(month = factor(month(date, label = TRUE, abbr = TRUE), # extract month from each date, labels it, and abbreviates the label
+                       levels = c("Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                              "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")), # makes the months a categorical factor
+         year = factor(as.character(year(date)), #set year as factor and extract year from the date column
+                       levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) %>%
+            group_by(year, month) %>%  # group by year and month
+  summarize(mean_monthly_sst = mean(temp)) # calculate the mean sst per month
+  
+```
+
+
+
+
 
 # Problem 4
 
