@@ -1,0 +1,32 @@
+---
+title: "final"
+format: html
+---
+
+https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
+
+```{r to read in packages and data}
+
+```
+
+
+
+
+
+
+
+# Problem 4
+
+## a. Comparing Visualizations
+
+I decided to represent the data in Homework 2 as a line graph and box plots, and didn't really get any clear visuals of the data at the time. By grouping the data into four different time slots and representing them as bar graphs, I was able to see visual patterns appear between step count and time on campus.
+
+There aren't many similarities, however I similarly saw that grouping steps by exercise type really showed no correlation between average step count and exercise type. 
+
+The most clear pattern is in the affective visualization as the average number of steps is somewhat correlated to time on campus; however, all the standard error bars overlap with each other so that correlation is only observed and would not be supported statistically. I plotted number of steps against time on campus as a line graph in homework 2, which showed a similar correlation as to what was observed in the final visualization. However, with so few points in homework 2, it is hard to compare as the data was quite variable at the time.
+
+I received primarily positive feedback, however it was suggested that I incorporate color into my drawing to visually distinguish between mean and error bars and buildings. I incorporated color to make it as visually distinguishable as possible.
+
+## b. Sharing your affective visualization
+
+This was done during section on Friday.
