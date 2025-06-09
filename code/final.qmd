@@ -1,9 +1,16 @@
 ---
-title: "final"
-format: html
+title: "ENVS 193DS Final"
+author: "Angela Larson"
+date: "8 June 2025"
+format:
+  html:
+    toc: true # use this to display a table of contents
+execute:
+  message: false # use this to make sure messages don't show up
+  warning: false # use this to make sure warnings don't show up
 ---
 
-https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
+[Repo Link]: https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
 
 ```{r to read in packages and data}
 
@@ -13,16 +20,19 @@ https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
 
 ## a. Transparent statistical methods
 
-In part one, they used a pearson correlation test as they tested between two continuous variables. In part two, they used a ANOVA to determine if there is a statistically significant difference in the average nitrogen load between a variety of categorical variables containing nitrogen.
+In part one, they used a pearson correlation test. In part two, they used a one-way ANOVA.
 
 ## b. More Information Needed
 
-Since the ANOVA returned at least two or more of the variables are statistically different from each other, we need to run a Tukey's post-hoc test to determine which specific nitrogen-containing variables are statistically different from each other. The ANOVA told us the difference exists within the variables, the post-hoc identifies between which variables.
+Since the ANOVA returned at least two or more of the variables are statistically different from each other, we need to run a Tukey's post-hoc test to determine which specific nitrogen-containing variables are statistically different from each other. The ANOVA told us a statistically significant difference exists within the variables (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands), the post-hoc identifies between which variables.
 
-Furthermore, we would run an eta squared test (n^2^) to determine the effect size. The effect size determines how much the grouping variable explains the response variable, given by the size of the variation in the response variable as described by the grouping variable. To put it simply, it describes how big of a difference exists between the variables, not just the significance. 
+Furthermore, we would run an eta squared test (n^2^) to determine the effect size. The effect size determines how much the grouping variable (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) explains the response variable (average nitrogen load), given by the size of the variation in the response variable as described by the grouping variable. To put it simply, it describes how big of a difference exists between the variables, not just the significance. 
 
 ## c. Suggestions for re-writing
 
+We determined there was a correlation between distance from headwater (km) and annual total nitrogen load (kg year{-1}) (Pearson correlation test, r = **correlation coefficient**, p = 0.03, $\alpha$ = **significance level**). 
+
+We found a small/medium/large ($\eta^2$ = **n^2^**) difference between sources (urban land, atmospheric deposition, fertilizer, wastewater treatment, and grasslands) in average nitrogen load (kg year{-1}), (one-way ANOVA, F(**among groups df, within groups df**) = **F-statistic**, p = 0.02, $\alpha$ = **significance level**). On average, **source** tended to have smaller/larger nitrogen loads than **source** (Tukey's HSD: p < **p-value**).
 
 # Problem 4
 
