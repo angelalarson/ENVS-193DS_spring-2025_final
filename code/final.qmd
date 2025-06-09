@@ -9,10 +9,19 @@ https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
 
 ```
 
+# Problem 1
 
+## a. Transparent statistical methods
 
+In part one, they used a pearson correlation test as they tested between two continuous variables. In part two, they used a ANOVA to determine if there is a statistically significant difference in the average nitrogen load between a variety of categorical variables containing nitrogen.
 
+## b. More Information Needed
 
+Since the ANOVA returned at least two or more of the variables are statistically different from each other, we need to run a Tukey's post-hoc test to determine which specific nitrogen-containing variables are statistically different from each other. The ANOVA told us the difference exists within the variables, the post-hoc identifies between which variables.
+
+Furthermore, we would run an eta squared test (n^2^) to determine the effect size. The effect size determines how much the grouping variable explains the response variable, given by the size of the variation in the response variable as described by the grouping variable. To put it simply, it describes how big of a difference exists between the variables, not just the significance. 
+
+## c. Suggestions for re-writing
 
 
 # Problem 4
