@@ -56,9 +56,46 @@ sst_clean <- sst %>% # creating new data frame called sst_clean from sst
          year = factor(as.character(year(date)), #set year as factor and extract year from the date column
                        levels = c("2018", "2019", "2020", "2021", "2022", "2023"))) %>%
             group_by(year, month) %>%  # group by year and month
-  summarize(mean_monthly_sst = mean(temp)) # calculate the mean sst per month
+  summarize(mean_monthly_sst = round(mean(temp), 1)) %>% # calculate the mean sst per month
+  ungroup() # add to ungroup grouped variables and match structure provided in example
+
+slice_sample(sst_clean, n = 5) # displaying five rows of clean data
+str(sst_clean) # showing the structure
+```
+
+## b. Visualize the data
+```{r visualize the data}
+#| message: false
+
+ggplot (data = sst_clean, # using sst_clean data frame
+        aes(x = month, # assigning x axis to be month
+            y = mean_monthly_sst, # assigning y axis to be mean monthly sst
+            color = year)) + # assigning color to be organized by year
+  
+  geom_point() + # adding points
+  geom_line(aes(group = year, color = year)) + # adding a line and color for each year
+  
+scale_color_manual(values = c("#c6dbef", # manually adjusting the colors
+                              "lightskyblue3", 
+                              "#6baed6", 
+                              "#4292c6", 
+                              "#2171b5", 
+                              "#084594")) + 
+  
+  scale_y_continuous(breaks = c(14, 16, 18, 20)) + # supposed to add the 20th tick mark but is not
+
+  labs(x = "Month", # name the x axis
+       y = "Mean monthly sea surface temperature (°C)", # name the y axis
+       color = "Year") + # name the legend
+  theme_cowplot() + # using cowplot theme
+  theme(axis.line = element_line(color = "slategray4", linewidth = 0.2), # changing color and width of axes
+        axis.ticks = element_line(color = "slategray4"), # changing color of axis tick marks
+        axis.text = element_text(color = "slategray4"), # changing the color of axis text
+        legend.position = c(0.05, 0.75), # changing legend position
+        panel.border = element_rect(color = "slategray4", linewidth = 0.7)) # adding a border
   
 ```
+
 
 
 
