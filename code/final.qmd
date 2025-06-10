@@ -206,6 +206,95 @@ AICc(model0,
 
 The best model, based on Akaike’s Information Criterion (AIC), included season, forest edge distance, and their interaction as predictors of Swift Parrot nest box occupancy. The model including both season and forest edge distance had the lowest AIC value, indicating the best trade-off between model simplicity and fit among the models tested.
 
+## h. Visualize the model predictions
+
+```{r, model-predictions}
+#| message: false
+
+model1_predictions <- ggpredict( model1, # naming model object
+  terms = c("edge_distance", "season") # listing predictors
+) %>% 
+  rename(
+    edge_distance = x,
+    season = group
+  )
+
+view(model1_predictions)
+```
+
+
+```{r, model-visualization}
+
+ggplot(data = nest_boxes_clean, # using nest_boxes_clean data frame
+       aes(x = edge_distance, # x is edge-distance
+           y = sp, # y axis
+           color = season)) + # color grouped by season
+  
+  geom_point(size = 3, #change size
+            alpha = 0.4, # adjust transparency
+             color = "slateblue4") + # change color
+  
+  # Confidence ribbon with 95% CI
+ geom_ribbon(data = model1_predictions, # using model1_predictions
+             aes(x = edge_distance, # x is edge-distance
+                  y = predicted, # y is predicted occupancy probability
+                  ymin = conf.low, # lower CI bound
+                  ymax = conf.high, # upper CI bound
+                  fill = season), # full ribbons by season
+              alpha = 0.4, # adjusting transparency
+              color = NA) + # remove border on ribbon
+  
+
+  geom_line(data = model1_predictions, # use model prediction data
+            aes(x = edge_distance, # x is edge-distance
+                y = predicted, # y is predicted occupancy probability
+                color = season), # group color by season
+            size = 1.2) + # change line thickness
+  
+ scale_color_manual(values = c("2016" = "violetred", "2019" = "gold2")) + # changing colors to associate with season
+  scale_fill_manual(values = c("2016" = "violetred", "2019" = "gold2")) +
+
+  labs(
+    x = "Distance to forest edge (m)", #  axis label
+    y = "Probability of Swift Parrot occupancy", # y axis label
+    color = "Season", # legend title for line color
+    fill = "Season", # legend title for ribbon color 
+    title = "Swift Parrot nest box occupancy as determined by distance to forest edge and year" # title label
+  ) +
+  theme_cowplot() + # use cowplot theme to remove lines and such
+  theme(legend.position = c(0.8, 0.8), # place legend inside x axis
+         plot.title = element_text(size = 11)  # change title font size
+) 
+  
+```
+
+## i. Write a caption for your figure.
+
+**Figure 1. Swift Parrot Nest Box Occupancy Decreases with Distance from Forest Edge and Differs between Seasons**
+Data from Stojanovic et al. (2020).
+Points represent the observations of Swift Parrot (*Lathamus discolor*) nest box occupancy (0 = unoccupied, 1 = occupied) and distance to forest edge (m) in different seasons (total n = 227).
+Lines show the model-predicted occupancy probabilities based on a binomial GLM with 95% confidence intervals.
+Colors represent season (orange: 2016, blue: 2019).
+
+## j. Calculate model predictions
+
+```{r, model1-predictions-0-and-900}
+# Generating model prediction for specific distances for each season
+model1_prediction_0_and_900 <- ggpredict(
+  model1,
+  terms = c("edge_distance [0,900]", "season")
+)
+
+# View the output
+model1_prediction_0_and_900
+```
+
+## k. Interpret your results
+
+At the edge of the forest (0 m), the predicted probability of Swift Parrot nest box occupancy was **higher in 2016 than in 2019**, suggesting that the occupancy of the nest box was initially strong. However, at 900 m from the edge of the forest, the occupancy probabilities were **low in both seasons**, with a slightly larger model uncertainty for 2019; overall, this indicates that the distance from the edge of the forest **negatively influences** Swift Parrot occupancy.
+The model and figure display a **decreasing trend** in Swift Parrot occupancy with **increasing the distance from the edge of the forest**, which is consistent across both seasons, although the decline appears to be steeper in 2016.
+Biologically, the trends likely reflect the Swift Parrot's **natural nesting preferences**, which is that they're edge-adapted cavity nesters, so their probability of occupying a nest box is **highest at the edge of the forest**. In the paper, we see that Common Starlings increasingly dominated the nest boxes closest to the forest edge over time, indicating that they outcompeted the other birds for these prime sites. Over time, we see that Tree Martins have learned to exploit interior boxes, further reducing the availability of suitable nesting sites for parrots in more more interior locations.
+
 
 # Problem 4 - Affective and exploratory visualizations
 
