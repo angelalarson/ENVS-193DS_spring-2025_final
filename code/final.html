@@ -232,11 +232,11 @@ window.Quarto = {
 <pre><code># A tibble: 5 × 3
   year  month mean_monthly_sst
   &lt;fct&gt; &lt;ord&gt;            &lt;dbl&gt;
-1 2022  Jan               13.9
-2 2021  Dec               14.4
-3 2020  Dec               14.5
-4 2022  Sep               19.3
-5 2019  Mar               13.6</code></pre>
+1 2022  Feb               14.1
+2 2018  Mar               13.5
+3 2022  Mar               13.3
+4 2023  Oct               17.4
+5 2019  Apr               13.7</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sst_clean) <span class="co"># showing the structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -356,7 +356,7 @@ window.Quarto = {
 <section id="f.-check-the-diagnostics" class="level2">
 <h2 class="anchored" data-anchor-id="f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># creates a 2x2 grid to display diagnostic plots THIS IS NOT WO</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>)) <span class="co"># creates a 2x2 grid to display diagnostic plots THIS IS NOT WORKING</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Model 0</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  sim0 <span class="ot">&lt;-</span> <span class="fu">simulateResiduals</span>(model0)</span>
@@ -364,7 +364,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/model-diagnostics-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/running%20diagnostics-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -375,7 +375,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/model-diagnostics-2.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/running%20diagnostics-2.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -386,7 +386,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/model-diagnostics-3.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/running%20diagnostics-3.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -397,7 +397,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/model-diagnostics-4.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/running%20diagnostics-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -479,7 +479,7 @@ model0  1 238.8318</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/model-visualization-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/visualizing%20model-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -487,19 +487,16 @@ model0  1 238.8318</code></pre>
 </section>
 <section id="i.-write-a-caption-for-your-figure." class="level2">
 <h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</h2>
-<p><strong>Figure 1. Swift Parrot Nest Box Occupancy Decreases with Distance from Forest Edge and Differs between Seasons</strong> Data from Stojanovic et al.&nbsp;(2020). Points represent the observations of Swift Parrot (<em>Lathamus discolor</em>) nest box occupancy (0 = unoccupied, 1 = occupied) and distance to forest edge (m) in different seasons (total n = 227). Lines show the model-predicted occupancy probabilities based on a binomial GLM with 95% confidence intervals. Colors represent season (orange: 2016, blue: 2019).</p>
 </section>
 <section id="j.-calculate-model-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="j.-calculate-model-predictions">j. Calculate model predictions</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generating model prediction for specific distances for each season</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>model1_prediction_0_and_900 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>(</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  model1,</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance [0,900]"</span>, <span class="st">"season"</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># View the output</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>model1_prediction_0_and_900</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>model1_0_900 <span class="ot">&lt;-</span> <span class="fu">ggpredict</span>( <span class="co"># using ggpredict for model predictions</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  model1, <span class="co"># using best fit, model1</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">terms =</span> <span class="fu">c</span>(<span class="st">"edge_distance [0,900]"</span>, <span class="st">"season"</span>) <span class="co"># runs model with parameters and specifically edge_distance 0-900 m</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>model1_0_900 <span class="co"># View the output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># Predicted probabilities of sp
 
@@ -521,7 +518,6 @@ edge_distance | Predicted |     95% CI
 </section>
 <section id="k.-interpret-your-results" class="level2">
 <h2 class="anchored" data-anchor-id="k.-interpret-your-results">k. Interpret your results</h2>
-<p>At the edge of the forest (0 m), the predicted probability of Swift Parrot nest box occupancy was <strong>higher in 2016 than in 2019</strong>, suggesting that the occupancy of the nest box was initially strong. However, at 900 m from the edge of the forest, the occupancy probabilities were <strong>low in both seasons</strong>, with a slightly larger model uncertainty for 2019; overall, this indicates that the distance from the edge of the forest <strong>negatively influences</strong> Swift Parrot occupancy. The model and figure display a <strong>decreasing trend</strong> in Swift Parrot occupancy with <strong>increasing the distance from the edge of the forest</strong>, which is consistent across both seasons, although the decline appears to be steeper in 2016. Biologically, the trends likely reflect the Swift Parrot’s <strong>natural nesting preferences</strong>, which is that they’re edge-adapted cavity nesters, so their probability of occupying a nest box is <strong>highest at the edge of the forest</strong>. In the paper, we see that Common Starlings increasingly dominated the nest boxes closest to the forest edge over time, indicating that they outcompeted the other birds for these prime sites. Over time, we see that Tree Martins have learned to exploit interior boxes, further reducing the availability of suitable nesting sites for parrots in more more interior locations.</p>
 </section>
 </section>
 <section id="problem-4---affective-and-exploratory-visualizations" class="level1">
@@ -535,7 +531,7 @@ edge_distance | Predicted |     95% CI
 </section>
 <section id="b.-sharing-your-affective-visualization" class="level2">
 <h2 class="anchored" data-anchor-id="b.-sharing-your-affective-visualization">b. Sharing your affective visualization</h2>
-<p>This was done during section on Friday.</p>
+<p>This was done during section at Friday, 9am section.</p>
 </section>
 </section>
 

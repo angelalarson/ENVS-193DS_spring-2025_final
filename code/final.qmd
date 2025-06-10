@@ -90,7 +90,6 @@ scale_color_manual(values = c("#c6dbef", # manually adjusting the colors
                               "#2171b5", 
                               "#084594")) + 
   
-  scale_y_continuous(breaks = c(14, 16, 18, 20)) + # supposed to add the 20th tick mark but is not
 
   labs(x = "Month", # name the x axis
        y = "Mean monthly sea surface temperature (°C)", # name the y axis
@@ -132,7 +131,7 @@ This study compares two seasons: 2016, when the nest boxes were first installed,
 
 ## e. Run the models
 
-```{r, model-fitting}
+```{r fitting the model}
 #| message: false
 #| echo: false
 
@@ -168,10 +167,9 @@ model3 <- glm(
 
 ## f. Check the diagnostics
 
-```{r, model-diagnostics}
+```{r running diagnostics}
 #| message: false
 
-par(mfrow = c(2,2)) # creates a 2x2 grid to display diagnostic plots THIS IS NOT WORKING
 # Model 0
 plot(
   sim0 <- simulateResiduals(model0)
@@ -193,7 +191,7 @@ plot(
 
 ## g. Select the best model
 
-```{r, model-selection}
+```{r model selection}
 AICc(model0,
      model1, # lowest AIC, best model
      model2,
@@ -206,7 +204,7 @@ The best model, based on Akaike’s Information Criterion (AIC), included season
 
 ## h. Visualize the model predictions
 
-```{r, model-predictions}
+```{r model predictions}
 #| message: false
 
 model1_predictions <- ggpredict( model1, # naming model object
@@ -221,7 +219,8 @@ view(model1_predictions)
 ```
 
 
-```{r, model-visualization}
+```{r visualizing model}
+#| message: false
 
 ggplot(data = nest_boxes_clean, # using nest_boxes_clean data frame
        aes(x = edge_distance, # x is edge-distance
@@ -268,30 +267,21 @@ ggplot(data = nest_boxes_clean, # using nest_boxes_clean data frame
 
 ## i. Write a caption for your figure.
 
-**Figure 1. Swift Parrot Nest Box Occupancy Decreases with Distance from Forest Edge and Differs between Seasons**
-Data from Stojanovic et al. (2020).
-Points represent the observations of Swift Parrot (*Lathamus discolor*) nest box occupancy (0 = unoccupied, 1 = occupied) and distance to forest edge (m) in different seasons (total n = 227).
-Lines show the model-predicted occupancy probabilities based on a binomial GLM with 95% confidence intervals.
-Colors represent season (orange: 2016, blue: 2019).
 
 ## j. Calculate model predictions
 
-```{r, model1-predictions-0-and-900}
-# Generating model prediction for specific distances for each season
-model1_prediction_0_and_900 <- ggpredict(
-  model1,
-  terms = c("edge_distance [0,900]", "season")
+```{r model1 predictions, 0 to 900 m}
+#| message: false
+
+model1_0_900 <- ggpredict( # using ggpredict for model predictions
+  model1, # using best fit, model1
+  terms = c("edge_distance [0,900]", "season") # runs model with parameters and specifically edge_distance 0-900 m
 )
 
-# View the output
-model1_prediction_0_and_900
+model1_0_900 # View the output
 ```
 
 ## k. Interpret your results
-
-At the edge of the forest (0 m), the predicted probability of Swift Parrot nest box occupancy was **higher in 2016 than in 2019**, suggesting that the occupancy of the nest box was initially strong. However, at 900 m from the edge of the forest, the occupancy probabilities were **low in both seasons**, with a slightly larger model uncertainty for 2019; overall, this indicates that the distance from the edge of the forest **negatively influences** Swift Parrot occupancy.
-The model and figure display a **decreasing trend** in Swift Parrot occupancy with **increasing the distance from the edge of the forest**, which is consistent across both seasons, although the decline appears to be steeper in 2016.
-Biologically, the trends likely reflect the Swift Parrot's **natural nesting preferences**, which is that they're edge-adapted cavity nesters, so their probability of occupying a nest box is **highest at the edge of the forest**. In the paper, we see that Common Starlings increasingly dominated the nest boxes closest to the forest edge over time, indicating that they outcompeted the other birds for these prime sites. Over time, we see that Tree Martins have learned to exploit interior boxes, further reducing the availability of suitable nesting sites for parrots in more more interior locations.
 
 
 # Problem 4 - Affective and exploratory visualizations
@@ -308,4 +298,4 @@ I received primarily positive feedback, however it was suggested that I incorpor
 
 ## b. Sharing your affective visualization
 
-This was done during section on Friday.
+This was done during section at Friday, 9am section. 
