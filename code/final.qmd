@@ -123,8 +123,6 @@ This study compares two seasons: 2016, when the nest boxes were first installed,
 
 ## d. Table of models
 
-4 models total:
-
 | Model number | Season |  Forest Edge Distance    | Model Description            | 
 |:------------:|:------:|:------------------------:|------------------------------|  
 | 0            |        |                          | no predictors (null model)   |
@@ -173,7 +171,7 @@ model3 <- glm(
 ```{r, model-diagnostics}
 #| message: false
 
-par(mfrow = c(2,2)) # creates a 2x2 grid to display diagnostic plots
+par(mfrow = c(2,2)) # creates a 2x2 grid to display diagnostic plots THIS IS NOT WORKING
 # Model 0
 plot(
   sim0 <- simulateResiduals(model0)
