@@ -21,6 +21,9 @@ library(cowplot) # for plot theme
 library(scales) # modifying axis labels
 library(ggeffects) # getting model predictions
 library(MuMIn) # model selection
+library(DHARMa)
+library(ggplot2)
+
 
 sst <- read_csv(here("data", "SST_update2023.csv")) # reading in SB channel SST data
 nest_boxes <- read_csv(here("data", "occdist.csv")) # reading in nest box data
@@ -101,13 +104,107 @@ scale_color_manual(values = c("#c6dbef", # manually adjusting the colors
   
 ```
 # Problem 3 - Data analysis
-```{r exploratory data analysis}
-#| echo: false
+```{r cleaning data}
 nest_boxes_clean <- nest_boxes %>% 
   clean_names() %>% 
   mutate(season = factor(season))
+```
+## a. Response variable
+
+The response variable is Swift Parrot box occupancy (binary variable "sp"), where 1 indicates a box occupied by a Swift Parrot. 0 would represent occupancy by the Common Starling or Tree Martin, or not occupied at all. 
+
+## b. Purpose of study
+
+The Swift Parrot, a critically endangered species and the focus of restoration efforts, is the target species of this restoration-based study that aims to determine whether nest boxes promote nesting of the target species or of its competitors, the Common Starling and Tree Martins. If competitors nest in the boxes, it could potentially impact the Swift Parrot's nesting success and project goals. 
+
+## c. Difference in “seasons”
+
+This study compares two seasons: 2016, when the nest boxes were first installed, and 2019, three years later. This time gap allows the author to examine changes in nest box use over time, specifically whether or not competitor species occupy more boxes meant for the Swift Parrot over the three years. 
+
+## d. Table of models
+
+4 models total:
+
+| Model number | Season |  Forest Edge Distance    | Model Description            | 
+|:------------:|:------:|:------------------------:|------------------------------|  
+| 0            |        |                          | no predictors (null model)   |
+| 1            |    X   |             X            | both predictors              | 
+| 2            |    X   |                          | season only                  |   
+| 3            |        |             X            | forest edge distance    only |    
+
+## e. Run the models
+
+```{r, model-fitting}
+#| message: false
+#| echo: false
+
+results = 'hide'
+# model 0: null model
+model0 <- glm(
+  sp ~ 1, # no predictors
+  data = nest_boxes_clean, 
+  family = "binomial" # include for binomial data
+)
+
+# model 1: all predictors
+model1 <- glm(
+  sp ~ season + edge_distance, # full model 
+  data = nest_boxes_clean,
+  family = "binomial" # include for binomial data
+)
+
+# model 2: season only
+model2 <- glm(
+  sp ~ season, # season only
+  data = nest_boxes_clean,
+  family = "binomial" # include for binomial data
+)
+
+# model 3: forest edge distance only
+model3 <- glm(
+  sp ~ edge_distance, # only edge distance
+  data = nest_boxes_clean,
+  family = "binomial" # include for binomial data
+)
+```
+
+## f. Check the diagnostics
+
+```{r, model-diagnostics}
+#| message: false
+
+par(mfrow = c(2,2)) # creates a 2x2 grid to display diagnostic plots
+# Model 0
+plot(
+  sim0 <- simulateResiduals(model0)
+)
+# Model 1
+plot(
+  sim1 <- simulateResiduals(model1) # redisuals look ok for best model
+)
+# Model 2
+plot(
+  sim2 <- simulateResiduals(model2)
+)
+# Model 3
+plot(
+  sim3 <- simulateResiduals(model3)
+)
 
 ```
+
+## g. Select the best model
+
+```{r, model-selection}
+AICc(model0,
+     model1, # lowest AIC, best model
+     model2,
+     model3) %>% 
+
+  arrange(AICc) # arranging output in descending order of AIC
+```
+
+The best model, based on Akaike’s Information Criterion (AIC), included season, forest edge distance, and their interaction as predictors of Swift Parrot nest box occupancy. The model including both season and forest edge distance had the lowest AIC value, indicating the best trade-off between model simplicity and fit among the models tested.
 
 
 # Problem 4 - Affective and exploratory visualizations
