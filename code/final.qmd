@@ -10,7 +10,7 @@ execute:
   warning: false # use this to make sure warnings don't show up
 ---
 
-[Repo Link]: https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
+https://github.com/angelalarson/ENVS-193DS_spring-2025_final.git
 
 ```{r to read in packages and data}
 #| message: false
