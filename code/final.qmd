@@ -21,8 +21,8 @@ library(cowplot) # for plot theme
 library(scales) # modifying axis labels
 library(ggeffects) # getting model predictions
 library(MuMIn) # model selection
-library(DHARMa)
-library(ggplot2)
+library(DHARMa) # for model diagnostics
+library(ggplot2) # graphing
 
 
 sst <- read_csv(here("data", "SST_update2023.csv")) # reading in SB channel SST data
@@ -72,7 +72,7 @@ str(sst_clean) # showing the structure
 ```
 
 ## b. Visualize the data
-```{r visualize the data}
+```{r visualize data}
 #| message: false
 
 ggplot (data = sst_clean, # using sst_clean data frame
@@ -104,6 +104,7 @@ scale_color_manual(values = c("#c6dbef", # manually adjusting the colors
 ```
 # Problem 3 - Data analysis
 ```{r cleaning data}
+#| message: false
 nest_boxes_clean <- nest_boxes %>% 
   clean_names() %>% 
   mutate(season = factor(season))
@@ -192,6 +193,7 @@ plot(
 ## g. Select the best model
 
 ```{r model selection}
+#| message: false
 AICc(model0,
      model1, # lowest AIC, best model
      model2,
@@ -267,6 +269,9 @@ ggplot(data = nest_boxes_clean, # using nest_boxes_clean data frame
 
 ## i. Write a caption for your figure.
 
+### Figure 1. Predicting Swift Parrot Nest Box Occupancy Based on Distance to Forest Edge and Season
+This figure shows the predicted probabilities of Swift Parrot nest box occupancy (response variable) based on a binomial GLM model with 95% confidence intervals, utilizing edge distance and season (predictor variables). The 95% confidence intevals are represented by the shaded ribbons. Blue points represent Swift Parrot nest box occupancy (0 = unoccupied, 1 = occupied) plotted against distance to forest edge (m) across two seasons (2016, 2019) (n = 227). Line and ribbon color correspond with season (pink = 2016, yellow = 2019). Stojanovic, Dejan et al. (2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb.
+
 
 ## j. Calculate model predictions
 
@@ -282,6 +287,8 @@ model1_0_900 # View the output
 ```
 
 ## k. Interpret your results
+
+Predicted probabilities from the binomial GLM model (Figure 1) show that Swift Parrot nest box occupancy is highest near the forest edge (0 m) and declines with increasing distance. As edge-adapted cavity nesters, the negative relationship observed between distance to forest edge and occupancy probability indicates the Swift Parrot's preference for nesting near forest edges. Futhermore, 2019 appeared to have fewer nesting boxes inhabited by the Swift Parrot. This supports Stojanovic et al., (2021) who found that Common Starlings increasingly dominated edge boxes and Tree Martins increasingly dominated interior boxes, decreasing the overall available boxes for the Swift Parrot over time. 
 
 
 # Problem 4 - Affective and exploratory visualizations
