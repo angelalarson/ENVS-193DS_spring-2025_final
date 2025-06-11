@@ -7,7 +7,7 @@ This is the repository for my final in the Spring 2025 ENVS 193DS class. This re
 ## Data and File Information
 
 ### Code
-- final.qmd: This is all my code and written responses for the final. The code loosely includes read in packages and datasets, models and predictions, and graphing.
+- final.qmd: This is all my code and written responses for the final. The code broadly includes read in packages and datasets, models and predictions, and graphing.
 
 ### Data
 - sst.csv: data set for Problem 2
