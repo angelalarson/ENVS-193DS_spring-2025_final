@@ -288,7 +288,7 @@ model1_0_900 # View the output
 
 ## k. Interpret your results
 
-Predicted probabilities from the binomial GLM model (Figure 1) show that Swift Parrot nest box occupancy is highest near the forest edge (0 m) and declines with increasing distance. As edge-adapted cavity nesters, the negative relationship observed between distance to forest edge and occupancy probability indicates the Swift Parrot's preference for nesting near forest edges. Futhermore, 2019 appeared to have fewer nesting boxes inhabited by the Swift Parrot. This supports Stojanovic et al., (2021) who found that Common Starlings increasingly dominated edge boxes and Tree Martins increasingly dominated interior boxes, decreasing the overall available boxes for the Swift Parrot over time. 
+Predicted probabilities from the binomial GLM model (Figure 1) show that Swift Parrot nest box occupancy is highest near the forest edge (0 m) and declines with increasing distance (900 m). As edge-adapted cavity nesters, the negative relationship observed between distance to forest edge and occupancy probability indicates the Swift Parrot's preference for nesting near forest edges. Futhermore, 2019 appeared to have fewer nesting boxes inhabited by the Swift Parrot. This supports Stojanovic et al., (2021) who found that Common Starlings increasingly dominated edge boxes and Tree Martins increasingly dominated interior boxes, decreasing the overall available boxes for the Swift Parrot over time. 
 
 
 # Problem 4 - Affective and exploratory visualizations

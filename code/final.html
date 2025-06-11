@@ -131,7 +131,10 @@ window.Quarto = {
   <li><a href="#f.-check-the-diagnostics" id="toc-f.-check-the-diagnostics" class="nav-link" data-scroll-target="#f.-check-the-diagnostics">f.&nbsp;Check the diagnostics</a></li>
   <li><a href="#g.-select-the-best-model" id="toc-g.-select-the-best-model" class="nav-link" data-scroll-target="#g.-select-the-best-model">g. Select the best model</a></li>
   <li><a href="#h.-visualize-the-model-predictions" id="toc-h.-visualize-the-model-predictions" class="nav-link" data-scroll-target="#h.-visualize-the-model-predictions">h. Visualize the model predictions</a></li>
-  <li><a href="#i.-write-a-caption-for-your-figure." id="toc-i.-write-a-caption-for-your-figure." class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</a></li>
+  <li><a href="#i.-write-a-caption-for-your-figure." id="toc-i.-write-a-caption-for-your-figure." class="nav-link" data-scroll-target="#i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</a>
+  <ul class="collapse">
+  <li><a href="#figure-1.-predicting-swift-parrot-nest-box-occupancy-based-on-distance-to-forest-edge-and-season" id="toc-figure-1.-predicting-swift-parrot-nest-box-occupancy-based-on-distance-to-forest-edge-and-season" class="nav-link" data-scroll-target="#figure-1.-predicting-swift-parrot-nest-box-occupancy-based-on-distance-to-forest-edge-and-season">Figure 1. Predicting Swift Parrot Nest Box Occupancy Based on Distance to Forest Edge and Season</a></li>
+  </ul></li>
   <li><a href="#j.-calculate-model-predictions" id="toc-j.-calculate-model-predictions" class="nav-link" data-scroll-target="#j.-calculate-model-predictions">j. Calculate model predictions</a></li>
   <li><a href="#k.-interpret-your-results" id="toc-k.-interpret-your-results" class="nav-link" data-scroll-target="#k.-interpret-your-results">k. Interpret your results</a></li>
   </ul></li>
@@ -185,8 +188,8 @@ window.Quarto = {
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales) <span class="co"># modifying axis labels</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggeffects) <span class="co"># getting model predictions</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MuMIn) <span class="co"># model selection</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DHARMa) <span class="co"># for model diagnostics</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2) <span class="co"># graphing</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sst <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">here</span>(<span class="st">"data"</span>, <span class="st">"SST_update2023.csv"</span>)) <span class="co"># reading in SB channel SST data</span></span>
@@ -233,11 +236,11 @@ window.Quarto = {
 <pre><code># A tibble: 5 × 3
   year  month mean_monthly_sst
   &lt;fct&gt; &lt;ord&gt;            &lt;dbl&gt;
-1 2018  Jan               15  
-2 2022  Jan               13.9
-3 2018  Aug               19.6
-4 2020  Jul               17  
-5 2021  Oct               16.6</code></pre>
+1 2022  Mar               13.3
+2 2023  Dec               16.1
+3 2018  May               13.6
+4 2020  Apr               14.3
+5 2020  May               14.6</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sst_clean) <span class="co"># showing the structure</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -279,7 +282,7 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="final_files/figure-html/visualize%20the%20data-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="final_files/figure-html/visualize%20data-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -486,6 +489,10 @@ model0  1 238.8318</code></pre>
 </section>
 <section id="i.-write-a-caption-for-your-figure." class="level2">
 <h2 class="anchored" data-anchor-id="i.-write-a-caption-for-your-figure.">i. Write a caption for your figure.</h2>
+<section id="figure-1.-predicting-swift-parrot-nest-box-occupancy-based-on-distance-to-forest-edge-and-season" class="level3">
+<h3 class="anchored" data-anchor-id="figure-1.-predicting-swift-parrot-nest-box-occupancy-based-on-distance-to-forest-edge-and-season">Figure 1. Predicting Swift Parrot Nest Box Occupancy Based on Distance to Forest Edge and Season</h3>
+<p>This figure shows the predicted probabilities of Swift Parrot nest box occupancy (response variable) based on a binomial GLM model with 95% confidence intervals, utilizing edge distance and season (predictor variables). The 95% confidence intevals are represented by the shaded ribbons. Blue points represent Swift Parrot nest box occupancy (0 = unoccupied, 1 = occupied) plotted against distance to forest edge (m) across two seasons (2016, 2019) (n = 227). Line and ribbon color correspond with season (pink = 2016, yellow = 2019). Stojanovic, Dejan et al.&nbsp;(2021). Do nest boxes breed the target species or its competitors? A case study of a critically endangered bird [Dataset]. Dryad. https://doi.org/10.5061/dryad.83bk3j9sb.</p>
+</section>
 </section>
 <section id="j.-calculate-model-predictions" class="level2">
 <h2 class="anchored" data-anchor-id="j.-calculate-model-predictions">j. Calculate model predictions</h2>
@@ -517,6 +524,7 @@ edge_distance | Predicted |     95% CI
 </section>
 <section id="k.-interpret-your-results" class="level2">
 <h2 class="anchored" data-anchor-id="k.-interpret-your-results">k. Interpret your results</h2>
+<p>Predicted probabilities from the binomial GLM model (Figure 1) show that Swift Parrot nest box occupancy is highest near the forest edge (0 m) and declines with increasing distance. As edge-adapted cavity nesters, the negative relationship observed between distance to forest edge and occupancy probability indicates the Swift Parrot’s preference for nesting near forest edges. Futhermore, 2019 appeared to have fewer nesting boxes inhabited by the Swift Parrot. This supports Stojanovic et al., (2021) who found that Common Starlings increasingly dominated edge boxes and Tree Martins increasingly dominated interior boxes, decreasing the overall available boxes for the Swift Parrot over time.</p>
 </section>
 </section>
 <section id="problem-4---affective-and-exploratory-visualizations" class="level1">
